@@ -17,8 +17,8 @@ addEventListener("mousemove", (event) => {
 
 // ================= Event Listeners Window Resize =================
 addEventListener('resize', () => {
-    canvas.width =0;
-    canvas.height = 0;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
     init();
 })
@@ -37,56 +37,50 @@ class Circle {
     draw() {
         c.beginPath()
         c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-        // c.strokeStyle = this.color;
-        // c.stroke()
+        c.strokeStyle = this.color;
+        c.stroke()
         c.fill()
         c.fillStyle = this.color;
         c.closePath()
     }
 
+
     //======================= Update Circle Position =======================
     update() {
+
         this.draw()
     }
 }
 
+// let circle = new Circle(100, 100, 50, 5, 5);
 
-// =================== Get Distance Function ========================
-const getDistance = (x1, y1, x2, y2) => {
-    let xDistance = x2-x1;
-    let yDistance = y2-y1;
+// let circleArray = [];
 
-    return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2))
-}
 
 let mouseCircle;
-let circle1;
 
 
 // Implementation
 const init = () => {
-    mouseCircle = new Circle(undefined, undefined, 30, '#ff5252');
-    circle1 = new Circle(innerWidth / 2, innerHeight / 2, 100, "#40407a")
-}
 
+    mouseCircle = new Circle(undefined, undefined, 50, '#ff5252');
+
+}
 init()
+
+console.log(mouseCircle);
+
+
 
 const animate = () => {
     requestAnimationFrame(animate);
     c.clearRect(0, 0, window.innerWidth, window.innerHeight)
 
     // c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y)
-    circle1.update();
+
     mouseCircle.x = mouse.x;
     mouseCircle.y = mouse.y;
     mouseCircle.update();
-
-    
-    if(getDistance( circle1.x, circle1.y, mouseCircle.x, mouseCircle.y ) < circle1.radius + mouseCircle.radius){
-        mouseCircle.color = "black"
-    } else {
-        mouseCircle.color = "#40407a"
-    }
 
 }
 
